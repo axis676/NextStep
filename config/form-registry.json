@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "forms": [
+    {
+      "formCode": "SYS_REQ",
+      "formName": "系統需求申請表",
+      "toolName": "createSystemRequirementDraft",
+      "riskLevel": "MEDIUM",
+      "executionMode": "CONFIRM_BEFORE_SUBMIT",
+      "allowedActions": [
+        "CREATE_DRAFT",
+        "SUBMIT_AFTER_APPROVAL"
+      ],
+      "description": "建立新系統需求，送出後預期取得系統代號與需求申請單號。"
+    },
+    {
+      "formCode": "VM_REQ",
+      "formName": "主機資源申請表",
+      "toolName": "createVmRequestDraft",
+      "riskLevel": "MEDIUM",
+      "executionMode": "CONFIRM_BEFORE_SUBMIT",
+      "allowedActions": [
+        "CREATE_DRAFT",
+        "SUBMIT_AFTER_APPROVAL"
+      ],
+      "description": "依據已核准的系統需求建立主機資源申請，送出後預期取得主機 IP 與主機申請單號。"
+    },
+    {
+      "formCode": "FIREWALL_REQ",
+      "formName": "防火牆申請表",
+      "toolName": "createFirewallRequestDraft",
+      "riskLevel": "HIGH",
+      "executionMode": "CREATE_DRAFT_ONLY",
+      "allowedActions": [
+        "CREATE_DRAFT"
+      ],
+      "description": "依據主機資訊建立防火牆開通草稿。高風險表單只允許 Agent 建立草稿，不允許自動送出。"
+    }
+  ]
+}

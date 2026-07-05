@@ -1,0 +1,188 @@
+{
+  "version": "0.1.0",
+  "forms": {
+    "SYS_REQ": {
+      "formName": "系統需求申請表",
+      "requiredFields": [
+        {
+          "name": "systemName",
+          "type": "string",
+          "label": "系統名稱"
+        },
+        {
+          "name": "externalFacing",
+          "type": "boolean",
+          "label": "是否為對外系統"
+        },
+        {
+          "name": "needDatabase",
+          "type": "boolean",
+          "label": "是否需要資料庫"
+        },
+        {
+          "name": "databaseType",
+          "type": "string",
+          "label": "資料庫類型",
+          "requiredWhen": "needDatabase == true"
+        },
+        {
+          "name": "hasPersonalData",
+          "type": "boolean",
+          "label": "是否處理個資"
+        },
+        {
+          "name": "expectedGoLiveDate",
+          "type": "date",
+          "label": "預計上線日期"
+        },
+        {
+          "name": "systemOwner",
+          "type": "string",
+          "label": "系統負責人"
+        },
+        {
+          "name": "businessOwner",
+          "type": "string",
+          "label": "業務窗口"
+        },
+        {
+          "name": "hasExistingSystemCode",
+          "type": "boolean",
+          "label": "是否已有系統代號"
+        },
+        {
+          "name": "systemCode",
+          "type": "string",
+          "label": "既有系統代號",
+          "requiredWhen": "hasExistingSystemCode == true"
+        }
+      ],
+      "outputFields": [
+        {
+          "name": "systemCode",
+          "type": "string",
+          "label": "系統代號"
+        },
+        {
+          "name": "sysReqFormNo",
+          "type": "string",
+          "label": "系統需求申請單號"
+        }
+      ]
+    },
+    "VM_REQ": {
+      "formName": "主機資源申請表",
+      "requiredFields": [
+        {
+          "name": "systemName",
+          "type": "string",
+          "label": "系統名稱"
+        },
+        {
+          "name": "systemCode",
+          "type": "string",
+          "label": "系統代號"
+        },
+        {
+          "name": "environment",
+          "type": "enum",
+          "label": "環境",
+          "allowedValues": [
+            "DEV",
+            "TEST",
+            "STAG",
+            "PROD"
+          ]
+        },
+        {
+          "name": "cpu",
+          "type": "number",
+          "label": "CPU 數量",
+          "minimum": 1
+        },
+        {
+          "name": "memoryGb",
+          "type": "number",
+          "label": "記憶體 GB",
+          "minimum": 1
+        },
+        {
+          "name": "diskGb",
+          "type": "number",
+          "label": "磁碟 GB",
+          "minimum": 1
+        },
+        {
+          "name": "os",
+          "type": "string",
+          "label": "作業系統"
+        },
+        {
+          "name": "purpose",
+          "type": "string",
+          "label": "用途說明"
+        }
+      ],
+      "outputFields": [
+        {
+          "name": "hostIP",
+          "type": "string",
+          "label": "主機 IP"
+        },
+        {
+          "name": "vmFormNo",
+          "type": "string",
+          "label": "主機資源申請單號"
+        }
+      ]
+    },
+    "FIREWALL_REQ": {
+      "formName": "防火牆申請表",
+      "requiredFields": [
+        {
+          "name": "systemCode",
+          "type": "string",
+          "label": "系統代號"
+        },
+        {
+          "name": "sourceIP",
+          "type": "string",
+          "label": "來源 IP"
+        },
+        {
+          "name": "targetIP",
+          "type": "string",
+          "label": "目的 IP"
+        },
+        {
+          "name": "port",
+          "type": "number",
+          "label": "連接埠",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        {
+          "name": "protocol",
+          "type": "enum",
+          "label": "通訊協定",
+          "allowedValues": [
+            "TCP",
+            "UDP"
+          ]
+        },
+        {
+          "name": "purpose",
+          "type": "string",
+          "label": "開通目的"
+        }
+      ],
+      "outputFields": [
+        {
+          "name": "firewallFormNo",
+          "type": "string",
+          "label": "防火牆申請單號"
+        }
+      ]
+    }
+  }
+}

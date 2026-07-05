@@ -1,0 +1,86 @@
+{
+  "version": "0.1.0",
+  "processes": [
+    {
+      "processCode": "NEW_EXTERNAL_SYSTEM_SETUP",
+      "processName": "新對外系統建置流程",
+      "description": "MVP 流程：使用者要建置新的對外系統時，規劃系統需求、主機資源與防火牆申請。",
+      "intent": "NEW_SYSTEM_SETUP",
+      "defaultNextAction": "建立系統需求申請表草稿",
+      "steps": [
+        {
+          "order": 1,
+          "formCode": "SYS_REQ",
+          "formName": "系統需求申請表",
+          "statusWhenPlanned": "READY",
+          "conditions": [],
+          "preconditions": [],
+          "requiredInputs": [
+            "systemName",
+            "externalFacing",
+            "needDatabase",
+            "hasPersonalData",
+            "expectedGoLiveDate",
+            "systemOwner",
+            "businessOwner",
+            "hasExistingSystemCode"
+          ],
+          "outputFields": [
+            "systemCode",
+            "sysReqFormNo"
+          ],
+          "nextActionAfterApproved": "建立主機資源申請表草稿"
+        },
+        {
+          "order": 2,
+          "formCode": "VM_REQ",
+          "formName": "主機資源申請表",
+          "statusWhenPlanned": "WAITING_FOR_SYS_REQ_APPROVAL",
+          "conditions": [],
+          "preconditions": [
+            "SYS_REQ.APPROVED"
+          ],
+          "requiredInputs": [
+            "systemName",
+            "systemCode",
+            "environment",
+            "cpu",
+            "memoryGb",
+            "diskGb",
+            "os",
+            "purpose"
+          ],
+          "outputFields": [
+            "hostIP",
+            "vmFormNo"
+          ],
+          "nextActionAfterApproved": "建立防火牆申請表草稿"
+        },
+        {
+          "order": 3,
+          "formCode": "FIREWALL_REQ",
+          "formName": "防火牆申請表",
+          "statusWhenPlanned": "WAITING_FOR_HOST_INFO",
+          "conditions": [
+            "externalFacing == true || needCrossNetwork == true"
+          ],
+          "preconditions": [
+            "VM_REQ.APPROVED"
+          ],
+          "requiredInputs": [
+            "systemCode",
+            "sourceIP",
+            "targetIP",
+            "port",
+            "protocol",
+            "purpose"
+          ],
+          "outputFields": [
+            "firewallFormNo"
+          ],
+          "nextActionAfterApproved": "等待後續上線或資安檢核流程"
+        }
+      ]
+    }
+  ]
+}
